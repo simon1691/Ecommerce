@@ -11,7 +11,7 @@ const ItemListContainer = ({ greeting }) => {
     padding="40px"
     fontWeight="bold"
     className="container-nav">
-      <h1>{greeting}</h1>
+      <h1>{ greeting }</h1>
     </Box>
   );
 };
