@@ -7,7 +7,7 @@ const NavBar = () => {
   return (
     <Box maxW="100%" bg="#9066ff">
       <Box
-        maxW="1440px"
+        maxW="1280px"
         mx="auto"
         bg="#9066ff"
         display="flex"
@@ -32,7 +32,7 @@ const NavBar = () => {
               <a href="#">Otras Mascotas</a>
             </li>
           </ul>
-          <CartWidget />
+          <CartWidget stock={5} />
         </div>
       </Box>
     </Box>

@@ -6,7 +6,7 @@ function App() {
   return (
     <Container maxW="100%" padding="0">
       <NavBar />
-      <ItemListContainer greeting="Hola a todos" />
+      <ItemListContainer />
     </Container>
   );
 }

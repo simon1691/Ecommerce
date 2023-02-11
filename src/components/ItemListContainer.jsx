@@ -1,17 +1,23 @@
 import React from "react";
 import { Box } from "@chakra-ui/react";
+import ItemList from "./ItemList"
 
-const ItemListContainer = ({ greeting }) => {
+const ItemListContainer = () => {
   return (
-    <Box
-    maxW="1440px"
-    mx="auto"
-    fontSize="40px"
-    textAlign="center"
-    padding="40px"
-    fontWeight="bold"
-    className="container-nav">
-      <h1>{ greeting }</h1>
+    <Box maxW="100%">
+      <Box
+        maxW="1280px"
+        my="5"
+        mx="auto"
+        display="flex"
+        alignItems="center"
+        className="container-nav"
+        justifyContent="space-between"
+        padding="10px"
+        color="white"
+      >
+      <ItemList/>
+      </Box>
     </Box>
   );
 };
