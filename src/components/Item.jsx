@@ -1,5 +1,6 @@
 import React from "react";
-import { MdOutlineShoppingCart } from "react-icons/md";
+import { Link } from "react-router-dom";
+import { MdOutlineShoppingCart, MdReadMore } from "react-icons/md";
 import {
   Flex,
   Box,
@@ -7,49 +8,84 @@ import {
   Badge,
   useColorModeValue,
   Icon,
-  chakra,
   Button,
   Text,
+  Tooltip,
 } from "@chakra-ui/react";
 
-const Item = () => {
+const Item = ({ title, price, image, category, id }) => {
   return (
     <Box
       bg={useColorModeValue("white", "gray.800")}
-      maxW="300"
+      maxW="250"
       borderWidth="1px"
       rounded="lg"
       shadow="lg"
-      position="relative"
       boxShadow="md"
       transition="box-shadow 0.1s ease-in-out"
       cursor="pointer"
       _hover={{
-        boxShadow:"xl"
+        boxShadow: "xl",
       }}
+      position="relative"
     >
-      <Box overflow="hidden" h={250}>
+      <Flex
+        overflow="hidden"
+        h={200}
+        justifyContent={"center"}
+        alignItems={"center"}
+      >
         <Image
-          src="https://images.unsplash.com/photo-1572635196237-14b3f281503f?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=4600&q=80"
+          src={image}
           alt={`Picture of Product Name`}
           roundedTop="lg"
+          maxW={"80%"}
+          maxH={"80%"}
         ></Image>
-      </Box>
-      <Box p="6">
-        <Box d="flex" alignItems="baseline">
-          <Badge
-            rounded="5"
-            py={1}
-            px={2}
-            fontSize="0.8em"
-            colorScheme="blue"
-            fontWeight="500"
-            lineHeight={"100%"}
-            mb={5}
-          >
-            Categoria
-          </Badge>
-        </Box>
+      </Flex>
+      <Box p="6" pt={2}>
+        <Flex
+          alignItems="baseline"
+          justifyContent={"space-between"}
+          alignContent="center"
+        >
+          <Box d="flex" alignItems="baseline">
+            <Badge
+              rounded="5"
+              py={1}
+              px={2}
+              fontSize="0.8em"
+              colorScheme="blue"
+              fontWeight="500"
+              lineHeight={"100%"}
+              mb={1}
+            >
+              {category}
+            </Badge>
+          </Box>
+          <Link to={`/item/${id}`}>
+            <Tooltip
+              label="Ver detalles"
+              placement={"top"}
+              shouldWrapChildren
+              hasArrow
+              arrowSize={10}
+              borderRadius={"5px"}
+              bg={"white"}
+              color={"black"}
+            >
+              <Icon
+                color="black"
+                as={MdReadMore}
+                h={5}
+                w={5}
+                alignSelf={"center"}
+                ms={1}
+                display={"block"}
+              />
+            </Tooltip>
+          </Link>
+        </Flex>
         <Flex justifyContent="space-between" alignContent="center">
           <Box
             fontSize="lg"
@@ -59,16 +95,24 @@ const Item = () => {
             color="black"
             isTruncated
           >
-            Product Title Here
+            {title}
           </Box>
         </Flex>
         <Box fontSize="2xl" color={"black"}>
-              $50
-            </Box>
-        <Flex mt="4" width="100%" bg="#9066ff" borderRadius="6" alignItems={"center"}>
+          $ {price}
+        </Box>
+        <Flex
+          mt="4"
+          width="100%"
+          bg="#9066ff"
+          borderRadius="6"
+          alignItems={"center"}
+        >
           <Button
+            px={3}
             backgroundColor={"transparent"}
-            width={"15%"}
+            minW={"27px"}
+            flexGrow={1}
             lineHeight={0}
             _hover={{
               bg: "#704fc8",
@@ -83,25 +127,28 @@ const Item = () => {
             fontSize={"1.2em"}
             d={"flex"}
             alignItems={"center"}
-            w={"75%"}
+            flexGrow={2}
             _hover={{
               bg: "#704fc8",
             }}
           >
-            <Text me={1}>Add To Cart</Text>
-              <Icon
-                color="current"
-                as={MdOutlineShoppingCart}
-                h={5}
-                w={5}
-                alignSelf={"center"}
-                ms={1}
-              />
+            <Text me={1} fontSize={"md"}>
+              Add To Cart
+            </Text>
+            <Icon
+              color="current"
+              as={MdOutlineShoppingCart}
+              h={5}
+              w={5}
+              alignSelf={"center"}
+              ms={1}
+            />
           </Button>
-
           <Button
-            bg={"transparent"}
-            w={"15%"}
+            px={3}
+            backgroundColor={"transparent"}
+            minW={"15px"}
+            flexGrow={1}
             lineHeight={0}
             _hover={{
               bg: "#704fc8",

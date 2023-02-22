@@ -2,6 +2,7 @@ import React from "react";
 import { Box } from "@chakra-ui/react";
 import CartWidget from "./CartWidget.jsx";
 import "./ComponentsCssStyles/NavBar.css";
+import { Link } from "react-router-dom";
 
 const NavBar = () => {
   return (
@@ -18,18 +19,23 @@ const NavBar = () => {
         color="white"
       >
         <div className="nav-logo">
-          <div>PetSon</div>
+          <div>
+            <Link to="/">Brand</Link>
+          </div>
         </div>
         <div className="container-nav-list">
           <ul className="nav-list" display="flex">
             <li>
-              <a href="#">Perros</a>
+              <Link to={`/category/${"men's clothing"}`}>MEN'S CLOTHING</Link>
             </li>
             <li>
-              <a href="#">Gatos</a>
+              <Link to={`/category/${"women's clothing"}`}>WOMEN'S CLOTHING</Link>
             </li>
             <li>
-              <a href="#">Otras Mascotas</a>
+              <Link to={`/category/${"jewelery"}`}>JEWELERY</Link>
+            </li>
+            <li>
+              <Link to={`/category/${"electronics"}`}>ELECTRONICS</Link>
             </li>
           </ul>
           <CartWidget stock={5} />
