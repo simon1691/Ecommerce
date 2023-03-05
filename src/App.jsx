@@ -3,6 +3,7 @@ import { Container } from "@chakra-ui/react";
 import ItemListContainer from "./components/containers/ItemListContainer";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import ItemDetailContainer from "./components/containers/ItemDetailContainer";
+import Cart from "./components/Cart";
 
 function App() {
   return (
@@ -20,6 +21,11 @@ function App() {
             exact
             path="/item/:id"
             element={<ItemDetailContainer />}
+          />
+          <Route
+            exact
+            path="/cart"
+            element={<Cart />}
           />
         </Routes>
       </Container>

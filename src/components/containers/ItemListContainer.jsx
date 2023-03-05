@@ -1,11 +1,13 @@
 import React, { useState, useEffect } from "react";
-import { Box } from "@chakra-ui/react";
+import { Box, Text } from "@chakra-ui/react";
 import ItemList from "../ItemList";
 import { useParams } from "react-router-dom";
+import Loader from "./Loader";
 
 const ItemListContainer = () => {
   const [productos, setProductos] = useState([]);
   const { id } = useParams();
+  const [loader, setLoader] = useState(true);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -14,16 +16,38 @@ const ItemListContainer = () => {
         const data = await response.json();
         setProductos(data);
       } catch (error) {
-        console.log("El Api no cargo");
+        setLoader(true);
       }
     };
     fetchData();
+    setLoader(false);
   }, []);
 
   const categoriaFilter = productos.filter(
     (producto) => producto.category === id
   );
 
+  if (loader) {
+    return (
+      <Box
+        h={"100vh"}
+        display="flex"
+        alignItems="center"
+        flexDir={"column"}
+        justifyContent="center"
+        position={"absolute"}
+        top={0}
+        bottom={0}
+        left={0}
+        right={0}
+      >
+        <Loader size="xl"></Loader>
+        <Box as="h1" mt={3}>
+          Cargando Productos...
+        </Box>
+      </Box>
+    );
+  }
   return (
     <Box maxW="100%">
       <Box

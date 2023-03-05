@@ -37,8 +37,8 @@ const NavBar = () => {
             <li>
               <Link to={`/category/${"electronics"}`}>ELECTRONICS</Link>
             </li>
+            <CartWidget stock={5} />
           </ul>
-          <CartWidget stock={5} />
         </div>
       </Box>
     </Box>
