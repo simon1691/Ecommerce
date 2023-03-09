@@ -18,7 +18,6 @@ const ItemListContainer = () => {
     const itemsCollection = collection(db, "productos");
     getDocs(itemsCollection).then((snapshot) => {
       const docs = snapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() }));
-      console.log(docs);
       setProductos(docs);
       if (productos) {
         setLoader(false);

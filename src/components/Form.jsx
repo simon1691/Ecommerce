@@ -21,9 +21,6 @@ const Form = ({ cartItem }) => {
   const [phone, setPhone] = useState("");
   const [error, setError] = useState("");
   const [validated, setValidated] = useState("");
-
-  console.log(cartItem);
-
   const handleSubmit = (e) => {
     e.preventDefault();
     setError("This field is requiered and can not be empty");

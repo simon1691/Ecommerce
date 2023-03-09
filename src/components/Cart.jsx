@@ -54,8 +54,6 @@ const Cart = () => {
     0
   );
 
-  console.log(globalTotal.toFixed(2));
-
   return (
     <Box
       key={"test"}
