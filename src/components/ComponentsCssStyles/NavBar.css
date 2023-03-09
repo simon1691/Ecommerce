@@ -64,4 +64,8 @@
 .d-none {display: none !important;}
 .d-block {display: block !important;}
 
+.border-error {border-color: red !important}
+
+.border-good {border-color: inherit !important}
+
 

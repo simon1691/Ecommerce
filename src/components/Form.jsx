@@ -10,51 +10,61 @@ import {
   Text,
 } from "@chakra-ui/react";
 
-const Form = () => {
+const Form = ({cartItem}) => {
   const [orderId, setOrderId] = useState(null);
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [email, setEmail] = useState("");
   const [phone, setPhone] = useState("");
+  const [error, setError] = useState("");
+  const [validated, setValidated] = useState("");
 
-  const db = getFirestore();
+  console.log(cartItem)
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    addDoc(ordersCollection, order).then(({ id }) => setOrderId(id));
+    setError("This field is requiered and can not be empty");
+    //validations
+    if (!firstName == "" && !lastName == "" && !email == "" && !phone == "") {
+      const order = {
+        firstName,
+        lastName,
+        email,
+        phone,
+        items: cartItem
+      };
+      const db = getFirestore();
+      const ordersCollection = collection(db, "order");
+      addDoc(ordersCollection, order).then(({ id }) => setOrderId(id));
+      setError("")
+    }
+    setValidated("border-error")
   };
-
-  const order = {
-    firstName,
-    lastName,
-    email,
-    phone,
-  };
-  const ordersCollection = collection(db, "order");
-
   return (
-    <form onSubmit={handleSubmit}>
+    <form onSubmit={handleSubmit} noValidate>
       <FormControl isRequired mb={4}>
         <FormLabel>First Name</FormLabel>
-        <Input type="text" onChange={(e) => setFirstName(e.target.value)} />
+        <Input type="text" className = {!firstName == "" ? "border-good" : `${validated}`} onChange={(e) => setFirstName(e.target.value)} />
+        {!firstName && <FormHelperText color={"red"}>{error}</FormHelperText>}
       </FormControl>
 
       <FormControl isRequired mb={4}>
         <FormLabel>Last Name</FormLabel>
-        <Input type="text" onChange={(e) => setLastName(e.target.value)} />
-        <FormHelperText></FormHelperText>
+        <Input type="text" className = {!lastName == "" ? "border-good" : `${validated}`} onChange={(e) => setLastName(e.target.value)} />
+        {!lastName && <FormHelperText color={"red"}>{error}</FormHelperText>}
       </FormControl>
 
       <FormControl isRequired mb={4}>
         <FormLabel>Email address</FormLabel>
-        <Input type="email" onChange={(e) => setEmail(e.target.value)} />
-        <FormHelperText>We'll never share your email.</FormHelperText>
+        <Input type="email" className = {!email == "" ? "border-good" : `${validated}`} onChange={(e) => setEmail(e.target.value)} />
+        {email &&<FormHelperText>We'll never share your email.</FormHelperText>}
+        {!email && <FormHelperText color={"red"}>{error}</FormHelperText>}
       </FormControl>
 
       <FormControl mb={4}>
         <FormLabel>Phone</FormLabel>
-        <Input type="tel" onChange={(e) => setPhone(e.target.value)} />
-        <FormHelperText></FormHelperText>
+        <Input type="tel" className = {!phone == "" ? "border-good" : `${validated}`} onChange={(e) => setPhone(e.target.value)} />
+        {!phone && <FormHelperText color={"red"}>{error}</FormHelperText>}
       </FormControl>
       <Button
         type="submit"

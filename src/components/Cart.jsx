@@ -116,7 +116,7 @@ const Cart = () => {
                         </Td>
                         <Td textAlign={"center"}>
                           <Tooltip
-                            label="less"
+                            label="-1"
                             placement={"top"}
                             shouldWrapChildren
                             hasArrow
@@ -152,7 +152,7 @@ const Cart = () => {
                             </Button>
                           </Tooltip>
                           <Tooltip
-                            label="Add"
+                            label="+1"
                             placement={"top"}
                             shouldWrapChildren
                             hasArrow
@@ -188,7 +188,7 @@ const Cart = () => {
                             </Button>
                           </Tooltip>
                           <Tooltip
-                            label="Remove All"
+                            label="Remove This Item"
                             placement={"top"}
                             shouldWrapChildren
                             hasArrow
@@ -233,42 +233,48 @@ const Cart = () => {
             <Flex justifyContent={"flex-end"} my={5}>
               <Flex
                 minW={"fit-content"}
-                borderRadius={"5px"}
-                py={2}
-                px={5}
                 mx={5}
-                bg={"#9066ff24"}
                 justifyContent={"flex-end"}
                 alignItems={"center"}
               >
-                <Box
-                  textAlign={"right"}
-                  minW={"40px"}
-                  mr={"30px"}
-                  fontWeight={"bold"}
-                >
-                  <span>Global Total: $</span>
-                  <span>{globalTotal.toFixed(2)}</span>
-                </Box>
                 <Box>
                   <Button
                     onClick={() => deleteCart(cartItem)}
                     h={"auto"}
-                    py={"5px"}
                     display={"block"}
                     mx={"auto"}
-                    bg="#ff6f6f"
-                    color={"white"}
+                    bg="transparent"
+                    color={"blue"}
+                    textDecor={"underline"}
                     fontSize={"1em"}
                     alignItems={"center"}
                     _hover={{
-                      bg: "#da5151",
+                      color: "#da5151",
+                    }}
+                    _focus={{
+                      color: "#da5151",
+                    }}
+                    _active={{
+                      color: "#da5151",
                     }}
                   >
                     <Text fontSize={"sm"} fontWeight={"normal"}>
-                      Empty the cart
+                      Empty Cart
                     </Text>
                   </Button>
+                </Box>
+                <Box
+                  borderRadius={"5px"}
+                  py={2}
+                  px={5}
+                  border={"solid 2px #9066ff24"}
+                  textAlign={"right"}
+                  minW={"40px"}
+                  ml={"5px"}
+                  fontWeight={"normal"}
+                >
+                  <span>Cart Total: $</span>
+                  <span>{globalTotal.toFixed(2)}</span>
                 </Box>
               </Flex>
             </Flex>
@@ -282,7 +288,7 @@ const Cart = () => {
               w={"100%"}
             >
               <Box>
-                <Form />
+                <Form cartItem={cartItem}/>
               </Box>
             </Box>
           </Box>
