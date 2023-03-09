@@ -9,6 +9,7 @@ import {
   FormHelperText,
   Input,
   Text,
+  Box,
 } from "@chakra-ui/react";
 
 const Form = ({ cartItem }) => {
@@ -48,6 +49,14 @@ const Form = ({ cartItem }) => {
   };
   return (
     <form onSubmit={handleSubmit} noValidate>
+      {orderId && (
+        <Box bg="#c8ff664d" borderRadius={"5px"} py={"10px"} px={"15px"} mb={"15px"}>
+          <Text fontSize={"sm"} fontWeight={"normal"}>
+            <Text fontWeight={"bold"} display={"inline"}>Purchase Order ID:</Text> {orderId}
+          </Text>
+        </Box>
+      )}
+
       <FormControl isRequired mb={4}>
         <FormLabel>First Name</FormLabel>
         <Input
@@ -81,7 +90,7 @@ const Form = ({ cartItem }) => {
         {!email && <FormHelperText color={"red"}>{error}</FormHelperText>}
       </FormControl>
 
-      <FormControl mb={4}>
+      <FormControl isRequired mb={4}>
         <FormLabel>Phone</FormLabel>
         <Input
           type="tel"
@@ -105,7 +114,6 @@ const Form = ({ cartItem }) => {
         <Text>Checkout Purchase</Text>
         <Text pl={2}>{loader && <Loader size={"sm"}></Loader>}</Text>
       </Button>
-      <Text>Your Purchase Order ID: {orderId}</Text>
     </form>
   );
 };

@@ -42,7 +42,7 @@ const ItemListContainer = () => {
       >
         <Loader size="xl"></Loader>
         <Box as="h1" mt={3}>
-          Cargando Productos...
+          Loading Products...
         </Box>
       </Box>
     );

@@ -41,7 +41,7 @@ const ItemDetailContainer = () => {
       >
         <Loader size="xl"></Loader>
         <Box as="h1" mt={3}>
-          Cargando Productos...
+          Loading Product...
         </Box>
       </Box>
     );

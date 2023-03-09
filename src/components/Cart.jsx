@@ -296,7 +296,7 @@ const Cart = () => {
       ) : (
         <Flex h={"600px"} justifyContent={"center"} alignItems={"start"}>
           <Box mt={"30px"}>
-            <Image src="../public/images/empty-cart.png"></Image>
+            <Image src="../images/empty-cart.png"></Image>
             <Link to="/">
               <Button
                 display={"block"}
