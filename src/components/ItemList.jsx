@@ -1,6 +1,7 @@
 import React from "react";
 import Item from "./Item";
 import { Flex } from "@chakra-ui/react";
+import { useState, useEffect } from "react";
 
 const ItemList = ({ productos }) => {
   return (
@@ -12,17 +13,7 @@ const ItemList = ({ productos }) => {
       mx={"auto"}
     >
       {productos.map((producto) => {
-        const { title, id, price, image, category } = producto;
-        return (
-          <Item
-            image={image}
-            title={title}
-            key={id}
-            id={id}
-            price={price}
-            category={category}
-          ></Item>
-        );
+        return <Item producto={producto} key={producto.title}></Item>;
       })}
     </Flex>
   );

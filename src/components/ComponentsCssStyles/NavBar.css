@@ -28,6 +28,11 @@
     padding-right: 10px;
 }
 
+.container-nav .container-nav-list .deactivated {
+    opacity: 0.5;
+    pointer-events: none;
+}
+
 .container-nav .container-nav-list .nav-cart-icon .notification{
     display: inline-block;
     position: absolute;
@@ -55,5 +60,8 @@
     margin: 0 0 0 10px;
     cursor: pointer;
 }
+
+.d-none {display: none !important;}
+.d-block {display: block !important;}
 
 

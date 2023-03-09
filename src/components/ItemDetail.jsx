@@ -1,25 +1,16 @@
 import React from "react";
-import { MdOutlineShoppingCart, MdReadMore } from "react-icons/md";
+import AddRemoveButtons from "./AddRemoveButtons";
 import {
   Flex,
   Box,
   Image,
   Badge,
   useColorModeValue,
-  Icon,
-  Button,
   Text,
-  Tooltip,
 } from "@chakra-ui/react";
 
-const ItemDetail = ({
-  title,
-  price,
-  image,
-  category,
-  id,
-  description,
-}) => {
+const ItemDetail = ({ producto }) => {
+  const { title, id, price, image, category, description } = producto;
   return (
     <Box
       key={`${id}`}
@@ -98,62 +89,7 @@ const ItemDetail = ({
             <Box fontSize="3xl" color={"black"}>
               $ {price}
             </Box>
-            <Flex
-              mt="4"
-              width="100%"
-              bg="#9066ff"
-              borderRadius="6"
-              alignItems={"center"}
-              justifyContent={"space-evenly"}
-            >
-              <Button
-                color={"white"}
-                px={3}
-                backgroundColor={"transparent"}
-                flexGrow={1}
-                lineHeight={0}
-                _hover={{
-                  bg: "#704fc8",
-                }}
-              >
-                -
-              </Button>
-              <Button
-                bg={"transparent"}
-                placement={"top"}
-                color={"white"}
-                fontSize={"1.2em"}
-                d={"flex"}
-                alignItems={"center"}
-                flexGrow={3}
-                _hover={{
-                  bg: "#704fc8",
-                }}
-              >
-                <Text me={1}>Add To Cart</Text>
-                <Icon
-                  color="current"
-                  as={MdOutlineShoppingCart}
-                  h={5}
-                  w={5}
-                  alignSelf={"center"}
-                  ms={1}
-                />
-              </Button>
-              <Button
-                color={"white"}
-                px={3}
-                backgroundColor={"transparent"}
-                minW={"15px"}
-                flexGrow={1}
-                lineHeight={0}
-                _hover={{
-                  bg: "#704fc8",
-                }}
-              >
-                +
-              </Button>
-            </Flex>
+            <AddRemoveButtons producto={producto} />
           </Flex>
         </Box>
       </Flex>

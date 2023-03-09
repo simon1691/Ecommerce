@@ -1,6 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { MdOutlineShoppingCart, MdReadMore } from "react-icons/md";
+import { MdReadMore } from "react-icons/md";
+import AddRemoveButtons from "./AddRemoveButtons";
 import {
   Flex,
   Box,
@@ -8,12 +9,11 @@ import {
   Badge,
   useColorModeValue,
   Icon,
-  Button,
-  Text,
   Tooltip,
 } from "@chakra-ui/react";
 
-const Item = ({ title, price, image, category, id }) => {
+const Item = ({ producto }) => {
+  const { title, id, price, image, category } = producto;
   return (
     <Box
       bg={useColorModeValue("white", "gray.800")}
@@ -65,7 +65,7 @@ const Item = ({ title, price, image, category, id }) => {
           </Box>
           <Link to={`/item/${id}`}>
             <Tooltip
-              label="Ver detalles"
+              label="See Details"
               placement={"top"}
               shouldWrapChildren
               hasArrow
@@ -101,62 +101,7 @@ const Item = ({ title, price, image, category, id }) => {
         <Box fontSize="2xl" color={"black"}>
           $ {price}
         </Box>
-        <Flex
-          mt="4"
-          width="100%"
-          bg="#9066ff"
-          borderRadius="6"
-          alignItems={"center"}
-        >
-          <Button
-            px={3}
-            backgroundColor={"transparent"}
-            minW={"27px"}
-            flexGrow={1}
-            lineHeight={0}
-            _hover={{
-              bg: "#704fc8",
-            }}
-          >
-            -
-          </Button>
-          <Button
-            bg={"transparent"}
-            placement={"top"}
-            color={"white"}
-            fontSize={"1.2em"}
-            d={"flex"}
-            alignItems={"center"}
-            flexGrow={2}
-            _hover={{
-              bg: "#704fc8",
-            }}
-          >
-            <Text me={1} fontSize={"md"}>
-              Add To Cart
-            </Text>
-            <Icon
-              color="current"
-              as={MdOutlineShoppingCart}
-              h={5}
-              w={5}
-              alignSelf={"center"}
-              ms={1}
-            />
-          </Button>
-          <Button
-            px={3}
-            backgroundColor={"transparent"}
-            minW={"15px"}
-            flexGrow={1}
-            lineHeight={0}
-            _hover={{
-              bg: "#704fc8",
-            }}
-          >
-            +
-          </Button>
-        </Flex>
+        <AddRemoveButtons producto={producto} />
       </Box>
     </Box>
   );

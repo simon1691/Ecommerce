@@ -1,8 +1,9 @@
 import React from "react";
-import { Box } from "@chakra-ui/react";
+import { background, Box, List, ListItem } from "@chakra-ui/react";
 import CartWidget from "./CartWidget.jsx";
 import "./ComponentsCssStyles/NavBar.css";
 import { Link } from "react-router-dom";
+import { easeInOut } from "framer-motion";
 
 const NavBar = () => {
   return (
@@ -24,21 +25,58 @@ const NavBar = () => {
           </div>
         </div>
         <div className="container-nav-list">
-          <ul className="nav-list" display="flex">
-            <li>
+          <List className="nav-list" display="flex">
+            <ListItem
+              _hover={{
+                bg: "#6b41dba1",
+                borderRadius: "10px",
+                transform: "background",
+                transitionDuration: "0.3s",
+                transitionTimingFunction: "ease-in-out",
+              }}
+            >
               <Link to={`/category/${"men's clothing"}`}>MEN'S CLOTHING</Link>
-            </li>
-            <li>
-              <Link to={`/category/${"women's clothing"}`}>WOMEN'S CLOTHING</Link>
-            </li>
-            <li>
+            </ListItem>
+            <ListItem
+              _hover={{
+                bg: "#6b41dba1",
+                borderRadius: "10px",
+
+                transform: "background",
+                transitionDuration: "0.3s",
+                transitionTimingFunction: "ease-in-out",
+              }}
+            >
+              <Link to={`/category/${"women's clothing"}`}>
+                WOMEN'S CLOTHING
+              </Link>
+            </ListItem>
+            <ListItem
+              _hover={{
+                bg: "#6b41dba1",
+                borderRadius: "10px",
+
+                transform: "background",
+                transitionDuration: "0.3s",
+                transitionTimingFunction: "ease-in-out",
+              }}
+            >
               <Link to={`/category/${"jewelery"}`}>JEWELERY</Link>
-            </li>
-            <li>
+            </ListItem>
+            <ListItem
+              _hover={{
+                bg: "#6b41dba1",
+                borderRadius: "10px",
+
+                transform: "background",
+                transitionDuration: "0.3s",
+                transitionTimingFunction: "ease-in-out",
+              }}
+            >
               <Link to={`/category/${"electronics"}`}>ELECTRONICS</Link>
-            </li>
+            </ListItem>
             <CartWidget stock={5} />
-          </ul>
+          </List>
         </div>
       </Box>
     </Box>

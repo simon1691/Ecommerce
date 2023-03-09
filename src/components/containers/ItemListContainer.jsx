@@ -2,30 +2,29 @@ import React, { useState, useEffect } from "react";
 import { Box, Text } from "@chakra-ui/react";
 import ItemList from "../ItemList";
 import { useParams } from "react-router-dom";
-import Loader from "./Loader";
+import Loader from "../Loader";
+import { collection, getDocs, getFirestore } from "firebase/firestore";
 
 const ItemListContainer = () => {
   const [productos, setProductos] = useState([]);
   const { id } = useParams();
   const [loader, setLoader] = useState(true);
-
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await fetch("https://fakestoreapi.com/products");
-        const data = await response.json();
-        setProductos(data);
-      } catch (error) {
-        setLoader(true);
-      }
-    };
-    fetchData();
-    setLoader(false);
-  }, []);
-
   const categoriaFilter = productos.filter(
     (producto) => producto.category === id
   );
+
+  useEffect(() => {
+    const db = getFirestore();
+    const itemsCollection = collection(db, "productos");
+    getDocs(itemsCollection).then((snapshot) => {
+      const docs = snapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() }));
+      console.log(docs);
+      setProductos(docs);
+      if (productos) {
+        setLoader(false);
+      }
+    });
+  }, []);
 
   if (loader) {
     return (

@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import {
   Flex,
   Box,
@@ -8,7 +9,6 @@ import {
   Text,
   FormControl,
   FormLabel,
-  FormErrorMessage,
   FormHelperText,
   Input,
   Table,
@@ -18,12 +18,44 @@ import {
   Th,
   Td,
   TableContainer,
-  Icon
+  Icon,
+  Tooltip,
 } from "@chakra-ui/react";
-import { RiDeleteBin6Line, RiAddCircleLine, RiIndeterminateCircleLine
+import {
+  RiDeleteBin6Line,
+  RiAddCircleLine,
+  RiIndeterminateCircleLine,
 } from "react-icons/ri";
+import Form from "./Form";
+import { useCartContext } from "./context/CartContext";
 
 const Cart = () => {
+  const {
+    cartItem,
+    addItemToCart,
+    removeItemCart,
+    resetItemCart,
+    setCartItem,
+    setCounter,
+  } = useCartContext();
+
+  const deleteCart = (cartItem) => {
+    setCartItem([]);
+    setCounter(0);
+  };
+
+  const totalQuantity = cartItem.map((item) => {
+    const total = Number(item.quantity) * Number(item.price).toFixed(2);
+    return total;
+  });
+
+  let globalTotal = totalQuantity.reduce(
+    (accumulator, currentValue) => accumulator + currentValue,
+    0
+  );
+
+  console.log(globalTotal.toFixed(2));
+
   return (
     <Box
       key={"test"}
@@ -42,148 +74,243 @@ const Cart = () => {
       m={"auto"}
       mt={"120px"}
     >
-      <Flex justifyContent={"space-between"}>
-        <TableContainer w={"100%"} m={5} mr={0}>
-          <Table  size='sm'>
-            <Thead>
-              <Tr>
-                <Th pb={3}>Product Image</Th>
-                <Th pb={3}>Product Name</Th>
-                <Th pb={3}>Price P/U</Th>
-                <Th pb={3}>Quantity</Th>
-                <Th pb={3}>Total Price</Th>
-                <Th pb={3} textAlign={"center"}>Actions</Th>
-              </Tr>
-            </Thead>
-            <Tbody>
-              <Tr>
-                <Td>inches</Td>
-                <Td>millimetres (mm)</Td>
-                <Td isNumeric>25.4</Td>
-                <Td isNumeric>25.4</Td>
-                <Td isNumeric>25.4</Td>
-                <Td textAlign={"center"}>
-                  <Button
-                  color={"#704fc8"}
-                    w={"30px"}
-                    h={"30px"}
-                    minW={0}
-                    lineHeight={0}
-                    _hover={{
-                      bg: "#704fc8",
-                      color:"white"
-                    }}
-                    borderRadius={"50%"}
-                    p={0}
-                  mx={1}
+      {cartItem.length !== 0 ? (
+        <Flex justifyContent={"space-between"}>
+          <Box w={"100%"}>
+            <TableContainer w={"100%"} maxH={"500px"} overflowY={"auto"} p={5}>
+              <Table size="sm">
+                <Thead>
+                  <Tr>
+                    <Th pb={3} textAlign={"center"}>
+                      Image
+                    </Th>
+                    <Th pb={3}>Product Name</Th>
+                    <Th pb={3}>Price P/U</Th>
+                    <Th pb={3}>Quantity</Th>
+                    <Th pb={3}>Total Price</Th>
+                    <Th pb={3} textAlign={"center"}>
+                      Actions
+                    </Th>
+                  </Tr>
+                </Thead>
+                <Tbody>
+                  {cartItem.map((item) => {
+                    return (
+                      <Tr key={item.id}>
+                        <Td textAlign={"center"}>
+                          <Image
+                            src={item.image}
+                            alt={item.title}
+                            maxW={"30px"}
+                            maxH={"30px"}
+                            m={"auto"}
+                          ></Image>
+                        </Td>
+                        <Td maxW={"200px"} whiteSpace={"normal"}>
+                          {item.title}
+                        </Td>
+                        <Td isNumeric>{item.price}</Td>
+                        <Td isNumeric>{item.quantity}</Td>
+                        <Td isNumeric>
+                          ${(item.price * item.quantity).toFixed(2)}
+                        </Td>
+                        <Td textAlign={"center"}>
+                          <Tooltip
+                            label="less"
+                            placement={"top"}
+                            shouldWrapChildren
+                            hasArrow
+                            arrowSize={10}
+                            borderRadius={"5px"}
+                            bg={"white"}
+                            color={"black"}
+                          >
+                            <Button
+                              onClick={() => {
+                                removeItemCart(item);
+                              }}
+                              color={"#704fc8"}
+                              w={"30px"}
+                              h={"30px"}
+                              minW={0}
+                              lineHeight={0}
+                              _hover={{
+                                bg: "#704fc8",
+                                color: "white",
+                              }}
+                              borderRadius={"50%"}
+                              p={0}
+                              mx={1}
+                            >
+                              <Icon
+                                color="current"
+                                as={RiIndeterminateCircleLine}
+                                h={5}
+                                w={5}
+                                alignSelf={"center"}
+                              />
+                            </Button>
+                          </Tooltip>
+                          <Tooltip
+                            label="Add"
+                            placement={"top"}
+                            shouldWrapChildren
+                            hasArrow
+                            arrowSize={10}
+                            borderRadius={"5px"}
+                            bg={"white"}
+                            color={"black"}
+                          >
+                            <Button
+                              onClick={() => {
+                                addItemToCart(item);
+                              }}
+                              color={"#704fc8"}
+                              w={"30px"}
+                              h={"30px"}
+                              minW={0}
+                              lineHeight={0}
+                              _hover={{
+                                bg: "#704fc8",
+                                color: "white",
+                              }}
+                              borderRadius={"50%"}
+                              p={0}
+                              mx={1}
+                            >
+                              <Icon
+                                color="current"
+                                as={RiAddCircleLine}
+                                h={5}
+                                w={5}
+                                alignSelf={"center"}
+                              />
+                            </Button>
+                          </Tooltip>
+                          <Tooltip
+                            label="Remove All"
+                            placement={"top"}
+                            shouldWrapChildren
+                            hasArrow
+                            arrowSize={10}
+                            borderRadius={"5px"}
+                            bg={"white"}
+                            color={"black"}
+                          >
+                            <Button
+                              onClick={() => {
+                                resetItemCart(item, item.quantity);
+                              }}
+                              color={"#704fc8"}
+                              w={"30px"}
+                              h={"30px"}
+                              minW={0}
+                              lineHeight={0}
+                              _hover={{
+                                bg: "#704fc8",
+                                color: "white",
+                              }}
+                              borderRadius={"50%"}
+                              p={0}
+                              mx={1}
+                            >
+                              <Icon
+                                color="current"
+                                as={RiDeleteBin6Line}
+                                h={5}
+                                w={5}
+                                alignSelf={"center"}
+                              />
+                            </Button>
+                          </Tooltip>
+                        </Td>
+                      </Tr>
+                    );
+                  })}
+                </Tbody>
+              </Table>
+            </TableContainer>
+            <Flex justifyContent={"flex-end"} my={5}>
+              <Flex
+                minW={"fit-content"}
+                borderRadius={"5px"}
+                py={2}
+                px={5}
+                mx={5}
+                bg={"#9066ff24"}
+                justifyContent={"flex-end"}
+                alignItems={"center"}
+              >
+                <Box
+                  textAlign={"right"}
+                  minW={"40px"}
+                  mr={"30px"}
+                  fontWeight={"bold"}
                 >
-                <Icon
-                color="current"
-                as={RiIndeterminateCircleLine}
-                h={5}
-                w={5}
-                alignSelf={"center"}
-              />
-                  </Button>
+                  <span>Global Total: $</span>
+                  <span>{globalTotal.toFixed(2)}</span>
+                </Box>
+                <Box>
                   <Button
-                    color={"#704fc8"}
-                    w={"30px"}
-                    h={"30px"}
-                    minW={0}
-                    lineHeight={0}
+                    onClick={() => deleteCart(cartItem)}
+                    h={"auto"}
+                    py={"5px"}
+                    display={"block"}
+                    mx={"auto"}
+                    bg="#ff6f6f"
+                    color={"white"}
+                    fontSize={"1em"}
+                    alignItems={"center"}
                     _hover={{
-                      bg: "#704fc8",
-                      color:"white"
+                      bg: "#da5151",
                     }}
-                    borderRadius={"50%"}
-                    p={0}
-                  mx={1}
                   >
-                    <Icon
-                    color="current"
-                    as={RiAddCircleLine}
-                    h={5}
-                    w={5}
-                    alignSelf={"center"}
-                  />
+                    <Text fontSize={"sm"} fontWeight={"normal"}>
+                      Empty the cart
+                    </Text>
                   </Button>
-                  <Button
-                  color={"#704fc8"}
-                  w={"30px"}
-                  h={"30px"}
-                  minW={0}
-                  lineHeight={0}
-                  _hover={{
-                    bg: "#704fc8",
-                    color:"white"
-                  }}
-                  borderRadius={"50%"}
-                  p={0}
-                mx={1}
-                  >
-                  <Icon
-                  color="current"
-                  as={RiDeleteBin6Line}
-                  h={5}
-                  w={5}
-                  alignSelf={"center"}
-                />
-                  </Button>
-                </Td>
-              </Tr>
-            </Tbody>
-          </Table>
-        </TableContainer>
-        <Box p="6">
-          <Box
-            p="8"
-            border={"1px solid #ebebeb"}
-            height={"100%"}
-            borderRadius="5"
-            w={400}
-          >
-            <Box>
-              <form>
-                <FormControl isRequired mb={4}>
-                  <FormLabel>First Name</FormLabel>
-                  <Input type='text' />
-                </FormControl>
-
-                <FormControl isRequired mb={4}>
-                  <FormLabel>Last Name</FormLabel>
-                  <Input type='text' />
-                  <FormHelperText></FormHelperText>
-                </FormControl>
-
-                <FormControl isRequired mb={4}>
-                  <FormLabel>Email address</FormLabel>
-                  <Input type='email' />
-                  <FormHelperText>We'll never share your email.</FormHelperText>
-                </FormControl>
-
-                <FormControl mb={4}>
-                  <FormLabel>Phone</FormLabel>
-                  <Input type='tel' />
-                  <FormHelperText></FormHelperText>
-                </FormControl>
-                <Button type="submit"
-                  bg="#9066ff"
-                  placement={"top"}
-                  color={"white"}
-                  fontSize={"1.2em"}
-                  alignItems={"center"}
-                  _hover={{
-                    bg: "#704fc8",
-                  }}
-                  mt={8} 
-                >
-                  <Text me={1}>Checkout Purchase</Text>
-                </Button>
-              </form>
+                </Box>
+              </Flex>
+            </Flex>
+          </Box>
+          <Box w={"700px"} p="6">
+            <Box
+              p="8"
+              border={"1px solid #ebebeb"}
+              height={"100%"}
+              borderRadius="5"
+              w={"100%"}
+            >
+              <Box>
+                <Form />
+              </Box>
             </Box>
           </Box>
-        </Box>
-      </Flex>
+        </Flex>
+      ) : (
+        <Flex h={"600px"} justifyContent={"center"} alignItems={"start"}>
+          <Box mt={"30px"}>
+            <Image src="../public/images/empty-cart.png"></Image>
+            <Link to="/">
+              <Button
+                display={"block"}
+                mx={"auto"}
+                bg="#9066ff"
+                placement={"top"}
+                color={"white"}
+                fontSize={"1.2em"}
+                alignItems={"center"}
+                flexGrow={2}
+                _hover={{
+                  bg: "#704fc8",
+                }}
+              >
+                <Text fontSize={"md"}>Let's add some items!!!</Text>
+              </Button>
+            </Link>
+          </Box>
+        </Flex>
+      )}
     </Box>
   );
 };
