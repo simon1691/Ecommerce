@@ -1,7 +1,6 @@
 import React from "react";
 import Item from "./Item";
 import { Flex } from "@chakra-ui/react";
-import { useState, useEffect } from "react";
 
 const ItemList = ({ productos }) => {
   return (

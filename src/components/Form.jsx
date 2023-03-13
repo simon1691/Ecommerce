@@ -1,5 +1,5 @@
 import React from "react";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { collection, getFirestore, addDoc } from "firebase/firestore";
 import Loader from "./Loader";
 import {

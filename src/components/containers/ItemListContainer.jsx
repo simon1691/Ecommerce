@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Box, Text } from "@chakra-ui/react";
+import { Box } from "@chakra-ui/react";
 import ItemList from "../ItemList";
 import { useParams } from "react-router-dom";
 import Loader from "../Loader";

@@ -1,9 +1,8 @@
 import React from "react";
-import { background, Box, List, ListItem } from "@chakra-ui/react";
+import { Box, List, ListItem } from "@chakra-ui/react";
 import CartWidget from "./CartWidget.jsx";
 import "./ComponentsCssStyles/NavBar.css";
 import { Link } from "react-router-dom";
-import { easeInOut } from "framer-motion";
 
 const NavBar = () => {
   return (
@@ -41,7 +40,6 @@ const NavBar = () => {
               _hover={{
                 bg: "#6b41dba1",
                 borderRadius: "10px",
-
                 transform: "background",
                 transitionDuration: "0.3s",
                 transitionTimingFunction: "ease-in-out",
@@ -55,7 +53,6 @@ const NavBar = () => {
               _hover={{
                 bg: "#6b41dba1",
                 borderRadius: "10px",
-
                 transform: "background",
                 transitionDuration: "0.3s",
                 transitionTimingFunction: "ease-in-out",
@@ -67,7 +64,6 @@ const NavBar = () => {
               _hover={{
                 bg: "#6b41dba1",
                 borderRadius: "10px",
-
                 transform: "background",
                 transitionDuration: "0.3s",
                 transitionTimingFunction: "ease-in-out",

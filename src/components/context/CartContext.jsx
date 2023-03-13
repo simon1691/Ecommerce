@@ -5,11 +5,9 @@ const CartContext = React.createContext();
 export function CartProvider(props) {
   const [counter, setCounter] = useState(0);
   const [cartItem, setCartItem] = useState([]);
-  const [localCartItems, setLocalCartItems] = [];
 
   const increaseCounter = () => setCounter(counter + 1);
-  const decreaseCounter = () =>
-    counter < 0 ? setCounter(0) : setCounter(counter - 1);
+  const decreaseCounter = () => counter < 0 ? setCounter(0) : setCounter(counter - 1);
 
   const addItemToCart = (producto) => {
     increaseCounter();
