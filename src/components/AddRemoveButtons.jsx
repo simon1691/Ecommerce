@@ -53,7 +53,7 @@ const AddRemoveButtons = ({ producto }) => {
         />
       </Button>
       <Button
-        onClick={() => addItemToCart()}
+        onClick={() => addItemToCart(producto)}
         px={3}
         backgroundColor={"transparent"}
         minW={"15px"}
